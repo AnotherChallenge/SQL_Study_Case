@@ -1,0 +1,79 @@
+SELECT
+    category,
+    MAX(CASE WHEN statistic = 'min' THEN value END) AS min_value,
+    MAX(CASE WHEN statistic = 'max' THEN value END) AS max_value,
+    MAX(CASE WHEN statistic = 'average' THEN value END) AS average_value
+FROM (
+    SELECT
+        'rental_duration' AS category,
+        'min' AS statistic,
+        ROUND(MIN(rental_duration), 2) AS value
+    FROM film
+    UNION ALL
+    SELECT
+        'rental_duration',
+        'max',
+        ROUND(MAX(rental_duration), 2)
+    FROM film
+    UNION ALL
+    SELECT
+        'rental_duration',
+        'average',
+        ROUND(AVG(rental_duration), 2)
+    FROM film
+    UNION ALL
+    SELECT
+        'rental_rate',
+        'min',
+        ROUND(MIN(rental_rate), 2)
+    FROM film
+    UNION ALL
+    SELECT
+        'rental_rate',
+        'max',
+        ROUND(MAX(rental_rate), 2)
+    FROM film
+    UNION ALL
+    SELECT
+        'rental_rate',
+        'average',
+        ROUND(AVG(rental_rate), 2)
+    FROM film
+    UNION ALL
+    SELECT
+        'length',
+        'min',
+        ROUND(MIN(length), 2)
+    FROM film
+    UNION ALL
+    SELECT
+        'length',
+        'max',
+        ROUND(MAX(length), 2)
+    FROM film
+    UNION ALL
+    SELECT
+        'length',
+        'average',
+        ROUND(AVG(length), 2)
+    FROM film
+    UNION ALL
+    SELECT
+        'replacement_cost',
+        'min',
+        ROUND(MIN(replacement_cost), 2)
+    FROM film
+    UNION ALL
+    SELECT
+        'replacement_cost',
+        'max',
+        ROUND(MAX(replacement_cost), 2)
+    FROM film
+    UNION ALL
+    SELECT
+        'replacement_cost',
+        'average',
+        ROUND(AVG(replacement_cost), 2)
+    FROM film
+) AS subquery
+GROUP BY category;
