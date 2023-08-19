@@ -1,0 +1,12 @@
+-- Here is a SQL query for the question: How many movies on which languages are in the inventory?
+
+SELECT
+	B.language_id,
+	B.name,
+	COUNT (A.film_id)
+FROM film A
+RIGHT JOIN language B ON A.language_id = B.language_id
+GROUP BY 
+	B.language_id,
+	B.name
+ORDER BY B.language_id ASC;
