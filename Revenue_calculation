@@ -1,0 +1,18 @@
+-- Which movie genres contributed the most / least to revenue gain?
+
+SELECT
+	B.name,
+	COUNT(A.film_id) AS film_count,
+    SUM(F.amount) AS total_profit,
+    ROUND (SUM(F.amount) / COUNT(A.film_id), 2) AS profit_to_film_ratio	
+	
+FROM film_category A
+LEFT JOIN category B ON A.category_id = B.category_id
+LEFT JOIN film C ON A.film_id = C.film_id
+LEFT JOIN inventory D ON C.film_id = D.film_id
+LEFT JOIN rental E ON D.inventory_id = E.inventory_id
+LEFT JOIN payment F ON E.rental_id = F.rental_id
+
+GROUP BY 
+	B.name
+ORDER BY film_count	DESC;
